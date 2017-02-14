@@ -499,11 +499,10 @@ function updatePositions() {
   //getElementsByClass is faster
   var length = items.length;
   var i;
-  var s = (document.body.scrollTop / 500);
-  var phase;
+  var s = (document.body.scrollTop / 1250);
 
   for (i = 0; i < length; i++) {
-    phase = Math.sin(s + (i % 5));
+    var phase = Math.sin(s + (i % 5));
     items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 'px' + ')';
   }
 
@@ -537,7 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
-    elem.style.left = cols / s;
+    elem.style.left = (i % cols) * s + 'px';
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     pizzaSelect.appendChild(elem);
   }
