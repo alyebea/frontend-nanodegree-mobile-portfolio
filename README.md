@@ -23,7 +23,8 @@ Click on index.html or visit my [GitHub Page](https://alyebea.github.io/frontend
 * moved variable creation out of for-loop when possible
 * changed style.left to style.transform in order to use the CSS3 translate effect
 * added requestAnimationFrame to scrolling function to move javascript earlier in the frame
-* added will-change to style.css to place background pizzas on their own layer
+* added will-change and backface-visibility to style.css to place background pizzas on their own layer
+* Used the height property to dynamically calculate the number of pizzas to fill the screen
 
 ##License
 
