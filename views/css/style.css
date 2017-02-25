@@ -35,6 +35,8 @@ form {
   z-index: -1;
 /*  added will-change to place background pizzas on own layer*/
   will-change: transform;
+  backface-visibility: hidden;
+/* added backface-visibility*/
 }
 
 .randomPizzaContainer {
