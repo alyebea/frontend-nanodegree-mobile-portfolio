@@ -443,9 +443,10 @@ var resizePizzas = function(size) {
         console.log("bug in sizeSwitcher");
     }
 
-    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
-
-    for (var i = 0; i < randomPizzas.length; i++) {
+    var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
+    // getElementsByClassName is faster
+    var pizzaLength = randomPizzas.length;
+    for (var i = 0; i < pizzaLength; i++) {
       randomPizzas[i].style.width = newWidth + "%";
     }
   }
@@ -496,15 +497,15 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.getElementsByClassName('mover');
-  // getElementsByClass is faster
+  // getElementsByClassName is faster
   var length = items.length;
   var i;
   var s = (document.body.scrollTop / 1250);
 
   // Simplified for-loop and changed style.left to transform
-  for (i = 0; i < length; i++) {
-    var phase = Math.sin(s + (i % 5));
-    items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 'px' + ')';
+  for (var i = 0, phase; i < length; i++) {
+    phase = Math.sin(s + (i % 5));
+    items[i].style.transform = 'translateX(' + (100 * phase) + 'px' + ')';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -517,20 +518,25 @@ function updatePositions() {
   }
 }
 
-
-// runs updatePositions on scroll
+// Runs updatePositions on scroll.
 window.addEventListener('scroll', updatePositions);
 
+
 // Generates the sliding pizzas when the page loads.
-// Assigned getElementById, a much better option to improve performance.
-var pizzaSelect = document.getElementById("movingPizzas1");
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
-  var s = 256;
+      s = 256;
+      // Calculates number of pizzas by screen height.
+      row = Math.floor(window.screen.height / s);
+      pizzaNumber = row * cols;
+      // Assigned getElementById, a much better option to improve performance.
+      pizzaSelect = document.getElementById("movingPizzas1");
+
   // Added requestAnimationFrame to move js up in rendering
   requestAnimationFrame(updatePositions);
 
-  for (var i = 0; i < 50; i++) {
+
+  for (var i = 0; i < pizzaNumber; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -543,7 +549,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
     requestAnimationFrame(updatePositions);
 });
-
-
-
-
